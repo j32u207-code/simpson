@@ -1,28 +1,59 @@
-package es.daw.simpson;
+package es.daw.simpson.controller;
 
 import java.io.*;
+import java.util.List;
 
+import es.daw.simpson.model.Personaje;
+import es.daw.simpson.repository.PersonajeRepository;
+import es.daw.simpson.service.PersonajeService;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "helloServlet", value = "/hello-servlet")
-public class HelloServlet extends HttpServlet {
-    private String message;
+@WebServlet("/personajes")
+public class PersonajeServlet extends HttpServlet {
 
-    public void init() {
-        message = "Hello World!";
+        //NO VAMOS A USAR REPOSITORIOS DIRECTAMENTE DEL SERVLET
+
+        private final PersonajeService personajeService= new PersonajeService();
+
+//    @Override
+//    public void init(ServletConfig config) throws ServletException {
+//        super.init(config);
+//    }
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        //1. LEER LOS PARAMETROS DEL REQUEST
+        //PENDIENTE!!
+        String lugar=request.getParameter("lugar");
+        String edadMax=request.getParameter("edadMax"); //Cuidado!! llega como un String pero la edad la trata como un int
+
+        Integer edadMin=Integer.valueOf(request.getParameter("edadMin"));
+        int edadMin2=Integer.parseInt(request.getParameter("edadMin"));
+
+        //continuará...
+
+        //boolean descendente=Boolean.parseBoolean(request.getParameter("descendente"));
+        boolean descendente=request.getParameter("descendente")!=null; //Si no esta marcado no se envia
+
+        //2. VALIDAR LOS DATOS DE LOS PARAMETROS
+
+
+        //3. LÓGICA DE NEGOCIO QUE HARÄ UN SERVICIO. OBTENER LA LISTA DE LOS PERSONAJES (con o sin filtro, con o sin ordenacion ...)
+        List<Personaje> personajes=personajeService.buscar();
+
+
+        //4. ENVIAR A LA VISTA LA INFORMACION PERTINENTE
+
+        request.setAttribute("personajes", personajes);
+
+        //5. REENVIAR A LA VISTA (JSP)
+        request.getRequestDispatcher("/personajes.jsp").forward(request,response);
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
 
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
-    }
 
-    public void destroy() {
-    }
+
 }
