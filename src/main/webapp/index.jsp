@@ -1,3 +1,3 @@
-<%-- Pagian de entrada: la mandamos directamente al servlet, que carga los datos y la vista --%>
+<%-- Pagina de entrada: la mandamos directamente al servlet, que carga los datos y la vista --%>
 <jsp:forward page="/personajes"/>
 

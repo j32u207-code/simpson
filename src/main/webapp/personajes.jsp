@@ -56,6 +56,8 @@
 
 <p class="resumen"><strong>${personajes.size()}</strong> personajes encontrados</p>
 
+
+    <c:if test="${not empty personajes}">
     <table>
         <thead>
         <tr>
@@ -66,11 +68,13 @@
         </tr>
         </thead>
         <tbody>
+
+        <c:forEach var="personaje" items="${personajes}">
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>${personaje.nombreCompleto()}</td>
+                <td>${personaje.edad()}</td>
+                <td>${personaje.ocupacion()}</td>
+                <td>${personaje.lugar()}</td>
             </tr>
         </c:forEach>
         </tbody>

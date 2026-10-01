@@ -28,15 +28,21 @@ public class PersonajeServlet extends HttpServlet {
         //1. LEER LOS PARAMETROS DEL REQUEST
         //PENDIENTE!!
         String lugar=request.getParameter("lugar");
+        System.out.println("lugar:"+lugar);
+
         String edadMax=request.getParameter("edadMax"); //Cuidado!! llega como un String pero la edad la trata como un int
+        System.out.println("edadMax:"+edadMax);
+//        Integer edadMin=Integer.valueOf(request.getParameter("edadMin"));
+        int edadMin=Integer.parseInt(request.getParameter("edadMin"));
+//        int edadMin2=Integer.parseInt(request.getParameter("edadMin"));
 
-        Integer edadMin=Integer.valueOf(request.getParameter("edadMin"));
-        int edadMin2=Integer.parseInt(request.getParameter("edadMin"));
 
+        String edadMin=request.getParameter("edadMin");
         //continuará...
 
         //boolean descendente=Boolean.parseBoolean(request.getParameter("descendente"));
         boolean descendente=request.getParameter("descendente")!=null; //Si no esta marcado no se envia
+        System.out.println("descendente:"+descendente);
 
         //2. VALIDAR LOS DATOS DE LOS PARAMETROS
 
